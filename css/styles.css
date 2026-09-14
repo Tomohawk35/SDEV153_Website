@@ -1,0 +1,283 @@
+
+:root {
+    --bg-color-1: #ee73811a;
+    --bg-color-2: #166534;
+    --bg-color-3: #115e59;
+    --bg-color-4: #305070;
+    --bg-color-5: #831843;
+    --bg-color-6: #1e3a8a;
+    --bg-color-7: #404040;
+    --bg-color-8: #303d4f;
+    --bg-color-9: #333639;
+    --bg-color-10: #333537;
+    --bg-color-11: #2e3236;
+    --bg-color-12: #25282b;
+    --bg-color-13: #272725;
+    --bg-color-14: #22252d;
+    --bg-color-15: #202326;
+
+    --font-color-1: #ffffff;
+    --font-color-2: #ffffffd9;
+    --font-color-3: #ffffffe6;
+    --font-color-4: #fcfcfc;
+    --font-color-5: #bfefff;
+    --font-color-6: #bfeeff;
+    --font-color-7: #dddddd;
+    --font-color-link: #88ccff;
+    --font-color-9: #bbbbbb;
+    --font-color-10: #aaaaaa;
+    --font-color-12: #d68f8f;
+    --font-color-13: #9b9b9b;
+    --font-color-14: #ee7381;
+    --font-color-15: #27ae60;
+    --font-color-16: #80848e;
+    --font-color-17: #808080;
+
+    --fill-color-1: #808080;
+    --fill-color-2: #000000;
+
+    --border-color-1: #555555;
+    --border-color-2: #0000001a;
+
+    --body-color: rgba(255, 255, 255, 0.85);
+    --content-wrap-background-color: #202326;
+    --content-background-color: #2e3236;
+    --logo-opacity: 0.85;
+    --navbar-background-color: #25282b;
+    --navbar-background-color-hover: #333639;
+    --navbar-background-color-active: #111417;
+    --navbar-current-background-color: #333639;
+    --navbar-current-background-color-hover: #44474a;
+    --navbar-current-background-color-active: #222528;
+    --navbar-category-active-color: rgba(238 115 129 / 10%);
+    --navbar-current-color: #fefefe;
+    --navbar-level-1-color: #ddd;
+    --navbar-level-2-color: #ccc;
+    --navbar-level-3-color: #bbb;
+    --navbar-expand-base-color: #80848e;
+    --navbar-expand-hover-color: #ccc;
+    --navbar-expand-active-color: #ddd;
+    --navbar-dimmed-color: #bbb;
+    --navbar-heading-color: #ee7381;
+    --navbar-scrollbar-color: #be5460;
+    --navbar-scrollbar-hover-color: #963e48;
+    --navbar-scrollbar-active-color: #5f3034;
+    --navbar-scrollbar-background: #1c1e21;
+    --link-color: #8cf;
+    --link-color-hover: #9df;
+    --link-color-active: #6ad;
+    --link-color-visited: #cb99f6;
+    --hr-color: #555;
+    --table-row-odd-background-color: #3b3e41;
+    --code-background-color: #22252d;
+    --code-border-color: #505356;
+    --code-literal-color: #d68f8f;
+    --input-background-color: #333537;
+    --input-focus-border-color: #5f8cff;
+    --tabs-background-color: #434649;
+    --tabs-selected-color: #a2a9ae;
+    --code-tabs-background-color: #3c3c3c;
+    --code-tabs-selected-color: #6a6a6a;
+    --classref-primary-color: #e8e8e8;
+    --classref-secondary-color: #929598;
+    --classref-setget-color: #9e9fa0;
+    --search-input-background-color: #43464a;
+    --search-match-color: #52b4ff;
+    --search-match-background-color: #414c56;
+    --search-active-color: #202326;
+    --search-credits-background-color: #202123;
+    --search-credits-color: #6b6b6b;
+    --search-credits-link-color: #628fb1;
+    --search-odd-color: #202326;
+    --search-even-color: #25282b;
+    --search-highlighted-color: rgb(255 205 0 / 16%);
+    --search-context-color: #aaa;
+    --highlight-background-color: #1d1d1d;
+    --highlight-background-emph-color: #2d2d2d;
+    --highlight-default-color: rgba(255, 255, 255, 0.85);
+    --highlight-comment-color: rgba(255, 255, 255, 0.5);
+    --highlight-doc-comment-color: rgba(153, 179, 204, 0.8);
+    --highlight-region-comment-color: rgba(173, 117, 196, 20);
+    --highlight-keyword-color: #ff7085;
+    --highlight-literal-color: var(--highlight-keyword-color);
+    --highlight-keyword2-color: #42ffc2;
+    --highlight-control-flow-keyword-color: #ff8ccc;
+    --highlight-number-color: #a1ffe0;
+    --highlight-decorator-color: #ffb373;
+    --highlight-base-type-color: #42ffc2;
+    --highlight-engine-type-color: #8fffdb;
+    --highlight-user-type-color: #c7ffed;
+    --highlight-member-variable-color: #bce0ff;
+    --highlight-function-color: #57b3ff;
+    --highlight-function-declaration-color: #66e6ff;
+    --highlight-global-function-color: #a3a3f5;
+    --highlight-operator-color: #abc8ff;
+    --highlight-string-color: #ffeca1;
+    --highlight-get-node-shorthand-color: #63c259;
+    --highlight-node-path-color: #b8c47d;
+    --highlight-string-name-color: #ffc2a6;
+    --copybtn-background-color: #2a303c;
+    --copybtn-background-color-hover: #3e4450;
+    --copybtn-border-color: #3e4450;
+    --copybtn-border-color-hover: #8b949e;
+    --copybtn-icon-color: #8b949e;
+    --copybtn-icon-color-success: #3fb950;
+    --copybtn-tooltip-background-color: #6e7681;
+    --copybtn-box-shadow: 0 0 transparent, 0 0 transparent;
+    --copybtn-border-color-success: #238636;
+    --contribute-background-color: #25282d;
+    --contribute-text-color: #7f939b;
+    --admonition-note-background-color: #303d4f;
+    --admonition-note-color: #bfeeff;
+    --admonition-note-title-background-color: #305070;
+    --admonition-note-title-color: #bfefff;
+    --admonition-attention-background-color: #444033;
+    --admonition-attention-color: #ffeeaf;
+    --admonition-attention-title-background-color: #665022;
+    --admonition-attention-title-color: #ffeeaf;
+    --admonition-danger-background-color: #433;
+    --admonition-danger-color: #fcc;
+    --admonition-danger-title-background-color: #633;
+    --admonition-danger-title-color: #fcc;
+    --admonition-tip-background-color: #28382d;
+    --admonition-tip-color: #dfd;
+    --admonition-tip-title-background-color: #336648;
+    --admonition-tip-title-color: #dfd;
+    --kbd-background-color: #595b5d;
+    --kbd-outline-color: #3d4144;
+    --kbd-shadow-color: #1e2023;
+    --kbd-text-color: #e2f2ff;
+    --role-button-background-color: #22252d;
+    --code-example-good-color: #3fb950;
+    --code-example-bad-color: #f85149;
+    --btn-neutral-background-color: #404040;
+    --btn-neutral-hover-background-color: #505050;
+    --footer-color: #aaa;
+
+}
+
+@font-face{
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-ExtraBoldItalic.woff2') format('woff2');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--content-background-color);
+    text-decoration: none;
+    font-style: normal;
+    color: var(--body-color);
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    background-color: var(--navbar-background-color);
+    color: var(--navbar-current-color);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 2rem;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+code, pre {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--code-background-color);
+    border: 1px solid var(--code-border-color);
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: var(--code-literal-color);
+}
+
+pre {
+    overflow-x: auto;
+    justify-content: left;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: var(--link-color);
+}
+
+a:visited {
+    color: var(--link-color-visited);
+}
+
+a:hover {
+    color: var(--link-color-hover);
+    text-decoration: underline;
+}
+
+a:active {
+    color: var(--link-color-active);
+    text-decoration: underline;
+}
+

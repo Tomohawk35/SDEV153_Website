@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="..\css\styles.css">
+        <link rel="stylesheet" href="{% static '..\css\styles.css' %}">
+        <script src="main.js"></script>
+        <title>Godot Tips</title>
+    </head>
+    <body>
+        <header class="page-header"><img src="..\assets\icon_color.svg" alt="Godot Logo" width="50" height="50">Godot Tips</header>
+        <nav> 
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-container">
+            <h1>Implementing a Slot-based Inventory System</h1>
+            <p>In this tutorial, we will go over how to implement a slot-based inventory system in Godot. This type of inventory system is commonly used in games where players can collect and manage items, such as Stardew Valley.</p>
+            <p>We want to start by planning out the structure and its requirements.</p>
+            <ul>
+                <li>We want to be able to add and remove items from the inventory.</li>
+                <li>We want to be able to save and load the inventory data.</li>
+                <li>We want to be able to limit the number of items in the inventory.</li>
+                <li>We want to be able to limit the number of each item in the inventory.</li>
+                <li>We want to be able to contain various types of items in the same inventory.</li>
+            </ul>
+            
+            
+            <h2>Step 1: Item Resource</h2>
+            <p>
+                First, we will create a new resource type for our items. In Godot, resources are data containers that can be 
+                easily saved and loaded. Resources are great for storing data that needs to be shared across multiple 
+                instances as they are reference-counted and can be reused without duplicating data.
+            </p>
+            <p>
+                We will create a new script called "item.gd" that extends the Resource class. 
+            </p>
+
+            <pre>extends Resource<br>class_name Item<br><br>@export var name : String = "New Item"<br>@export var icon : Texture2D<br>@export var description : String = "A new blank item."</pre>
+
+            <p>The above code defines a simple item resource with three properties: name, icon, and description.</p>
+            <p>We can extend off of this base class to create more specific item types with additional properties or behaviors.</p>
+
+
+            <h2>Step 2: SlotData Resource</h2>
+            <p>Next, we will create a resource to represent each slot in the inventory. Each slot in an inventory contains some number of a single type of item.</p>
+
+            <pre>extends Resource<br>class_name SlotData<br><br>const MAX_QUANTITY : int = 99<br><br>@export var item : Item<br>@export var quantity : int = 1</pre>
+
+            <h2>Step 3: Inventory Resource</h2>
+            <p>Next, we will create an inventory resource to manage the items. This resource will hold a list of items and provide methods for adding, removing, and accessing items.</p>
+            <p>Let's start with the basic structure. The resource contains an array of SlotData resources. These SlotData resources are the individual items and associated quantities. 
+                Each slot can hold a maximum of 99 items, and the inventory can hold a maximum of 20 slots.
+            </p>
+
+            <pre>
+extends Resource
+class_name Inventory
+
+const MAX_SLOTS : int = 20
+const SLOT_MAX_ITEM_QUANTITY : int = 99
+
+@export var slots : Array[SlotData] = []</pre>
+
+
+
+
+            <p>
+                Next, let's create a method to add an item to the inventory. The method will take an Item resource and a quantity as parameters (default 1). 
+                It will return true if the item was successfully added, or false if the inventory is full or the item could not be added.
+            </p>
+
+            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+    ...</pre>
+
+            <p>Let's start by looping through the slots in the inventory and checking if the slot contains the item and how much space that slot has available. 
+                We will keep track of the total available space in a temporary <code>count</code> variable.</p>
+
+            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+    var count : int = 0
+    for slot in slots:
+        if slot.item == item:
+            count += SLOT_MAX_ITEM_QUANTITY - slot.quantity
+    ...</pre>
+
+
+            <p>
+                
+                This method will check if the item already 
+                exists in the inventory and if so, it will increase the quantity of that item. If the item does not exist, 
+                it will create a new slot for that item.</p>
+
+            <pre>
+const SLOT_MAX_ITEM_QUANTITY : int = 99
+
+func add_item(item : Item, quantity : int = 1) -> bool:
+    for slot in slots:
+        if slot.item == item and slot.quantity + quantity <= SLOT_MAX_ITEM_QUANTITY:
+            slot.quantity += quantity
+            return true
+    for slot in slots:
+        if slot.item == null:
+            slot.item = item
+            slot.quantity = quantity
+            return true
+    return false</pre>
+
+
+
+            <h2>Page in progress...</h2>
+
+
+        </main>
+    </body>
+</html>
+
+
+<!-- {% block content %}
+    <h1>Implementing a Slot-based Inventory System</h1>
+    <p>In this tutorial, we will go over how to implement a slot-based inventory system in Godot. This type of inventory system is commonly used in games where players can collect and manage items.</p>
+    <h2>Step 1: Setting Up the Inventory Scene</h2>
+    <p>First, create a new scene for the inventory. This scene will contain a grid of slots where items can be placed. Each slot will be represented by a button or a panel.</p>
+    <h2>Step 2: Creating the Item Class</h2>
+    <p>Create a new script for the item class. This class will hold information about each item, such as its name, icon, and any other relevant data.</p>
+    <h2>Step 3: Implementing the Inventory Logic</h2>
+    <p>Next, implement the logic for adding and removing items from the inventory. This can be done by creating functions that handle these actions and updating the UI accordingly.</p>
+    <h2>Step 4: Saving and Loading Inventory Data</h2>
+    <p>Finally, implement functionality to save and load the inventory data. This can be done using Godot's built-in file system or by using a custom save system.</p>
+{% endblock %} -->
