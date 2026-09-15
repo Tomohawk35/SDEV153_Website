@@ -52,7 +52,10 @@
 
             <h2>Step 3: Inventory Resource</h2>
             <p>Next, we will create an inventory resource to manage the items. This resource will hold a list of items and provide methods for adding, removing, and accessing items.</p>
-            <p>Let's start with the basic structure. The resource contains an array of SlotData resources. These SlotData resources are the individual items and associated quantities. 
+
+            <h3>Basic Structure</h3>
+            <p>
+                Let's start with the basic structure. The resource contains an array of SlotData resources. These SlotData resources are the individual items and associated quantities. 
                 Each slot can hold a maximum of 99 items, and the inventory can hold a maximum of 20 slots.
             </p>
 
@@ -66,50 +69,103 @@ const SLOT_MAX_ITEM_QUANTITY : int = 99
 @export var slots : Array[SlotData] = []</pre>
 
 
-
+            <h3>Adding Items</h3>
 
             <p>
-                Next, let's create a method to add an item to the inventory. The method will take an Item resource and a quantity as parameters (default 1). 
+                Next, let's create a simple method to add an item to the inventory. The method will take an Item resource and a quantity as parameters (default 1). 
                 It will return true if the item was successfully added, or false if the inventory is full or the item could not be added.
             </p>
 
-            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
-    ...</pre>
-
-            <p>Let's start by looping through the slots in the inventory and checking if the slot contains the item and how much space that slot has available. 
-                We will keep track of the total available space in a temporary <code>count</code> variable.</p>
-
-            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
-    var count : int = 0
-    for slot in slots:
-        if slot.item == item:
-            count += SLOT_MAX_ITEM_QUANTITY - slot.quantity
-    ...</pre>
-
-
-            <p>
-                
-                This method will check if the item already 
-                exists in the inventory and if so, it will increase the quantity of that item. If the item does not exist, 
-                it will create a new slot for that item.</p>
-
             <pre>
-const SLOT_MAX_ITEM_QUANTITY : int = 99
-
 func add_item(item : Item, quantity : int = 1) -> bool:
     for slot in slots:
-        if slot.item == item and slot.quantity + quantity <= SLOT_MAX_ITEM_QUANTITY:
+        if slot.item == item:
             slot.quantity += quantity
-            return true
-    for slot in slots:
-        if slot.item == null:
-            slot.item = item
-            slot.quantity = quantity
             return true
     return false</pre>
 
+            <p>
+                Can you see any issue with this implementation? 
+                What if the item is not in the inventory? 
+                What if there are no empty slots? 
+                What if the item is in the inventory, but the quantity we are trying to add exceeds the available space?
+            </p>
+            <p>Let's try to handle these cases:</p>
 
 
+            <h4>Item Not in Inventory</h4>
+
+            <p>If the item is not already in the inventory, we need to see if there is space for another slot and then create the new SlotData resource.</p>
+
+            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+    for slot in slots:
+        if slot.item == item:
+            slot.quantity += quantity
+            return true
+    
+    if slots.size() < MAX_SLOTS - 1:
+        var new_slot : SlotData = SlotData.new()
+        new_slot.item = item
+        new_slot.quantity = quantity
+        slots.append(new_slot)
+        return true
+
+    return false</pre>
+
+            <h4>Exceeding Available Space</h4>
+
+            <p>
+                What if we are trying to add more quantity of an item than is available in any single slot? 
+                Or maybe the quantity we are trying to add exceeds the available space of an existing slot? We need to flow over into another slot.
+                Let's start by counting up the total available space before making any changes to the inventory. If the total available space is less than the quantity we are trying to add, we will return false.
+            </p>
+
+            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+    var available_space : int = 0
+    for slot in slots:
+        if slot.item == item:
+            available_space += SLOT_MAX_ITEM_QUANTITY - slot.quantity
+    
+    available_space += (MAX_SLOTS - slots.size()) * SLOT_MAX_ITEM_QUANTITY
+    if available_space < quantity:
+        return false
+    ...</pre>
+    
+
+            <p>Now that we know there is enough space, we can loop through the slots again and add the quantity to the existing slots until we have added all of the quantity.</p>
+
+            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+    ...
+    var remaining_quantity : int = quantity
+    for slot in slots:
+        if slot.item == item:
+            var space_in_slot : int = SLOT_MAX_ITEM_QUANTITY - slot.quantity
+            var quantity_to_add : int = min(space_in_slot, remaining_quantity)
+            slot.quantity += quantity_to_add
+            remaining_quantity -= quantity_to_add
+            if remaining_quantity == 0:
+                return true
+    
+    while remaining_quantity > 0 and slots.size() < MAX_SLOTS - 1:
+        var new_slot : SlotData = SlotData.new()
+        new_slot.item = item
+        var quantity_to_add : int = min(SLOT_MAX_ITEM_QUANTITY, remaining_quantity)
+        new_slot.quantity = quantity_to_add
+        slots.append(new_slot)
+        remaining_quantity -= quantity_to_add
+    
+
+    return true</pre>
+
+            <!-- <p>A small optimization we can make is to sort the slots by their item type or name before adding items. This will make it easier to find items and reduce the number of iterations needed.</p> -->
+            
+            <p>We can break the available space calculation into a separate function for better readability and early termination.</p>
+
+            
+
+
+            <h2>Remove Item</h2>
+            <h2>Sort Items</h2>
             <h2>Page in progress...</h2>
 
 
@@ -118,15 +174,3 @@ func add_item(item : Item, quantity : int = 1) -> bool:
 </html>
 
 
-<!-- {% block content %}
-    <h1>Implementing a Slot-based Inventory System</h1>
-    <p>In this tutorial, we will go over how to implement a slot-based inventory system in Godot. This type of inventory system is commonly used in games where players can collect and manage items.</p>
-    <h2>Step 1: Setting Up the Inventory Scene</h2>
-    <p>First, create a new scene for the inventory. This scene will contain a grid of slots where items can be placed. Each slot will be represented by a button or a panel.</p>
-    <h2>Step 2: Creating the Item Class</h2>
-    <p>Create a new script for the item class. This class will hold information about each item, such as its name, icon, and any other relevant data.</p>
-    <h2>Step 3: Implementing the Inventory Logic</h2>
-    <p>Next, implement the logic for adding and removing items from the inventory. This can be done by creating functions that handle these actions and updating the UI accordingly.</p>
-    <h2>Step 4: Saving and Loading Inventory Data</h2>
-    <p>Finally, implement functionality to save and load the inventory data. This can be done using Godot's built-in file system or by using a custom save system.</p>
-{% endblock %} -->
