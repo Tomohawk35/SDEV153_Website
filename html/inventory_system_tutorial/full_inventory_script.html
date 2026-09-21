@@ -1,0 +1,90 @@
+<pre>
+extends Resource
+class_name Inventory
+
+const MAX_SLOTS : int = 20
+const SLOT_MAX_ITEM_QUANTITY : int = 99
+
+@export var slots : Array[SlotData] = []
+
+
+func add_item(item : Item, quantity : int = 1) -> bool:
+    var available_space : int = 0
+
+    for slot in slots:
+        if slot.item == item:
+            available_space += SLOT_MAX_ITEM_QUANTITY - slot.quantity
+    
+    available_space += (MAX_SLOTS - slots.size()) * SLOT_MAX_ITEM_QUANTITY
+    if available_space < quantity:
+        return false # early return if we don't have enough space
+    
+    var remaining_quantity : int = quantity
+
+    # Add to existing slots first
+    for slot in slots:
+        if slot.item == item:
+            var space_in_slot : int = SLOT_MAX_ITEM_QUANTITY - slot.quantity
+            var quantity_to_add : int = min(space_in_slot, remaining_quantity)
+            slot.quantity += quantity_to_add
+            remaining_quantity -= quantity_to_add
+            if remaining_quantity == 0:
+                return true
+    
+    # Add new slots for remaining quantity
+    while remaining_quantity > 0 and slots.size() < MAX_SLOTS - 1:
+        var new_slot : SlotData = SlotData.new()
+        new_slot.item = item
+        var quantity_to_add : int = min(SLOT_MAX_ITEM_QUANTITY, remaining_quantity)
+        new_slot.quantity = quantity_to_add
+        slots.append(new_slot)
+        remaining_quantity -= quantity_to_add
+    
+
+    return true
+
+
+func remove_item(item : Item, quantity : int = 1) -> bool:
+    var total_quantity : int = 0
+    for slot in slots:
+        if slot.item == item:
+            total_quantity += slot.quantity
+    
+    if total_quantity < quantity:
+        return false # early return if we don't have enough items to remove
+    
+    var remaining_quantity : int = quantity
+
+    # Remove from existing slots
+    for slot in slots:
+        if slot.item == item:
+            var quantity_to_remove : int = min(slot.quantity, remaining_quantity)
+            slot.quantity -= quantity_to_remove
+            remaining_quantity -= quantity_to_remove
+            if remaining_quantity == 0:
+                break # early exit if we have removed all the required quantity
+    
+    # Remove empty slots
+    slots = slots.filter(func(slot):
+        return slot.quantity > 0
+    )
+    
+    return true
+
+
+func get_total_quantity(item : Item) -> int:
+    var total_quantity : int = 0
+    for slot in slots:
+        if slot.item == item:
+            total_quantity += slot.quantity
+    return total_quantity
+
+
+func has_item(item : Item, quantity : int = 1) -> bool:
+    return get_total_quantity(item) >= quantity
+
+
+func clear_inventory() -> void:
+    slots.clear()
+
+</pre>

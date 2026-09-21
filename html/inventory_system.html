@@ -19,6 +19,11 @@
         <main class="content-container">
             <h1>Implementing a Slot-based Inventory System</h1>
             <p>In this tutorial, we will go over how to implement a slot-based inventory system in Godot. This type of inventory system is commonly used in games where players can collect and manage items, such as Stardew Valley.</p>
+            <center>
+                <img src="../assets/sv-inventory.png" alt="Inventory from Stardew Valley including a grid of item slots that each can hold up to 999 of a single item" max-height="400" width="800">
+                <p>Image: Inventory from Stardew Valley</p>
+            </center>
+            
             <p>We want to start by planning out the structure and its requirements.</p>
             <ul>
                 <li>We want to be able to add and remove items from the inventory.</li>
@@ -39,8 +44,20 @@
                 We will create a new script called "item.gd" that extends the Resource class. 
             </p>
 
-            <pre>extends Resource<br>class_name Item<br><br>@export var name : String = "New Item"<br>@export var icon : Texture2D<br>@export var description : String = "A new blank item."</pre>
+            <!-- <pre>extends Resource<br>class_name Item<br><br>@export var name : String = "New Item"<br>@export var icon : Texture2D<br>@export var description : String = "A new blank item."</pre> -->
+            
+            <div id="item-script"></div>
 
+            <script>
+                fetch('inventory_system_tutorial/item_script.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        // document.getElementById('item-script').innerHTML = `<pre>${data}</pre>`;
+                        document.getElementById('item-script').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error loading item script:', error));
+            </script>
+            
             <p>The above code defines a simple item resource with three properties: name, icon, and description.</p>
             <p>We can extend off of this base class to create more specific item types with additional properties or behaviors.</p>
 
@@ -48,7 +65,18 @@
             <h2>Step 2: SlotData Resource</h2>
             <p>Next, we will create a resource to represent each slot in the inventory. Each slot in an inventory contains some number of a single type of item.</p>
 
-            <pre>extends Resource<br>class_name SlotData<br><br>const MAX_QUANTITY : int = 99<br><br>@export var item : Item<br>@export var quantity : int = 1</pre>
+            <!-- <pre>extends Resource<br>class_name SlotData<br><br>const MAX_QUANTITY : int = 99<br><br>@export var item : Item<br>@export var quantity : int = 1</pre> -->
+            <div id="slot-data-script"></div>
+
+            <script>
+                fetch('inventory_system_tutorial/slot_data_script.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        // document.getElementById('item-script').innerHTML = `<pre>${data}</pre>`;
+                        document.getElementById('slot-data-script').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error loading slot data script:', error));
+            </script>
 
             <h2>Step 3: Inventory Resource</h2>
             <p>Next, we will create an inventory resource to manage the items. This resource will hold a list of items and provide methods for adding, removing, and accessing items.</p>
@@ -166,6 +194,23 @@ func add_item(item : Item, quantity : int = 1) -> bool:
 
             <h2>Remove Item</h2>
             <h2>Sort Items</h2>
+
+
+            <h2>Full Inventory Script</h2>
+            
+            <div id="full-inventory-script"></div>
+
+            <script>
+                fetch('inventory_system_tutorial/full_inventory_script.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        // document.getElementById('item-script').innerHTML = `<pre>${data}</pre>`;
+                        document.getElementById('full-inventory-script').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error loading full inventory script:', error));
+            </script>
+
+
             <h2>Page in progress...</h2>
 
 
