@@ -1,15 +1,15 @@
 <pre>
-extends Resource
+<span id="keyword">extends</span> <span id="class-name">Resource</span>
 class_name Inventory
 
-const MAX_SLOTS : int = 20
-const SLOT_MAX_ITEM_QUANTITY : int = 99
+<span id="keyword">const</span> MAX_SLOTS : <span id="class-name">int</span> = <span id="number">20</span>
+<span id="keyword">const</span> SLOT_MAX_ITEM_QUANTITY : <span id="class-name">int</span> = <span id="number">99</span>
 
-@export var slots : Array[SlotData] = []
+<span id="decorator">@export</span> <span id="keyword">var</span> slots : Array[SlotData] = []
 
 
-func add_item(item : Item, quantity : int = 1) -> bool:
-    var available_space : int = 0
+<span id="keyword">func</span> <span id="function">add_item</span>(item : Item, quantity : int = <span id="number">1</span>) -> bool:
+    <span id="keyword">var</span> available_space : int = <span id="number">0</span>
 
     for slot in slots:
         if slot.item == item:
@@ -17,74 +17,74 @@ func add_item(item : Item, quantity : int = 1) -> bool:
     
     available_space += (MAX_SLOTS - slots.size()) * SLOT_MAX_ITEM_QUANTITY
     if available_space < quantity:
-        return false # early return if we don't have enough space
+        <span id="keyword">return</span> false <span id="comment"># early return if we don't have enough space</span>
     
-    var remaining_quantity : int = quantity
+    <span id="keyword">var</span> remaining_quantity : int = quantity
 
-    # Add to existing slots first
+    <span id="comment"># Add to existing slots first</span>
     for slot in slots:
         if slot.item == item:
-            var space_in_slot : int = SLOT_MAX_ITEM_QUANTITY - slot.quantity
-            var quantity_to_add : int = min(space_in_slot, remaining_quantity)
+            <span id="keyword">var</span> space_in_slot : int = SLOT_MAX_ITEM_QUANTITY - slot.quantity
+            <span id="keyword">var</span> quantity_to_add : int = min(space_in_slot, remaining_quantity)
             slot.quantity += quantity_to_add
             remaining_quantity -= quantity_to_add
-            if remaining_quantity == 0:
-                return true
+            if remaining_quantity == <span id="number">1</span>:
+                <span id="keyword">return</span> true
     
-    # Add new slots for remaining quantity
-    while remaining_quantity > 0 and slots.size() < MAX_SLOTS - 1:
-        var new_slot : SlotData = SlotData.new()
+    <span id="comment"># Add new slots for remaining quantity</span>
+    while remaining_quantity > 0 and slots.size() < MAX_SLOTS - <span id="number">1</span>:
+        <span id="keyword">var</span> new_slot : SlotData = SlotData.new()
         new_slot.item = item
-        var quantity_to_add : int = min(SLOT_MAX_ITEM_QUANTITY, remaining_quantity)
+        <span id="keyword">var</span> quantity_to_add : int = min(SLOT_MAX_ITEM_QUANTITY, remaining_quantity)
         new_slot.quantity = quantity_to_add
         slots.append(new_slot)
         remaining_quantity -= quantity_to_add
     
 
-    return true
+    <span id="keyword">return</span> true
 
 
-func remove_item(item : Item, quantity : int = 1) -> bool:
-    var total_quantity : int = 0
+<span id="keyword">func</span> <span id="function">remove_item</span>(item : <span id="class-name">Item</span>, quantity : int = <span id="number">1</span>) -> bool:
+    <span id="keyword">var</span> total_quantity : int = <span id="number">0</span>
     for slot in slots:
         if slot.item == item:
             total_quantity += slot.quantity
     
     if total_quantity < quantity:
-        return false # early return if we don't have enough items to remove
+        <span id="keyword">return</span> false <span id="comment"># early return if we don't have enough items to remove</span>
     
-    var remaining_quantity : int = quantity
+    <span id="keyword">var</span> remaining_quantity : int = quantity
 
-    # Remove from existing slots
+    <span id="comment"># Remove from existing slots</span>
     for slot in slots:
         if slot.item == item:
-            var quantity_to_remove : int = min(slot.quantity, remaining_quantity)
+            <span id="keyword">var</span> quantity_to_remove : int = min(slot.quantity, remaining_quantity)
             slot.quantity -= quantity_to_remove
             remaining_quantity -= quantity_to_remove
-            if remaining_quantity == 0:
-                break # early exit if we have removed all the required quantity
+            if remaining_quantity == <span id="number">0</span>:
+                <span id="keyword">return</span> <span id="comment"># early exit if we have removed all the required quantity</span>
     
-    # Remove empty slots
+    <span id="comment"># Remove empty slots</span>
     slots = slots.filter(func(slot):
-        return slot.quantity > 0
+        <span id="keyword">return</span> slot.quantity > <span id="number">0</span>
     )
     
-    return true
+    <span id="keyword">return</span> true
 
 
-func get_total_quantity(item : Item) -> int:
-    var total_quantity : int = 0
+<span id="keyword">func</span> <span id="function">get_total_quantity</span>(item : Item) -> int:
+    <span id="keyword">var</span> total_quantity : int = <span id="number">0</span>
     for slot in slots:
         if slot.item == item:
             total_quantity += slot.quantity
-    return total_quantity
+    <span id="keyword">return</span> total_quantity
 
 
-func has_item(item : Item, quantity : int = 1) -> bool:
-    return get_total_quantity(item) >= quantity
+<span id="keyword">func</span> <span id="function">has_item</span>(item : Item, quantity : int = <span id="number">1</span>) -> bool:
+    <span id="keyword">return</span> get_total_quantity(item) >= quantity
 
 
-func clear_inventory() -> void:
+<span id="keyword">func</span> <span id="function">clear_inventory</span>() -> void:
     slots.clear()
 
 </pre>

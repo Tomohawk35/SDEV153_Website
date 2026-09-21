@@ -222,6 +222,7 @@
 
 body {
     font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
     background-color: var(--content-background-color);
     text-decoration: none;
     font-style: normal;
@@ -247,7 +248,7 @@ header {
     color: var(--navbar-current-color);
     font-family: 'JetBrains Mono', monospace;
     font-weight: 800;
-    font-size: 2rem;
+    font-size: 24px;
     padding: 10px;
     display: flex;
     align-items: center;
@@ -258,17 +259,51 @@ code, pre {
     font-family: 'JetBrains Mono', monospace;
     background-color: var(--code-background-color);
     border: 1px solid var(--code-border-color);
-    padding: 8px 16px;
+    padding: 16px 32px;
     border-radius: 4px;
-    color: var(--code-literal-color);
+    /* color: var(--code-literal-color); */
+    color: var(--highlight-default-color);
 }
 
 pre {
     overflow-x: auto;
     justify-content: left;
-    margin-left: 5vw;
-    margin-right: 5vw;
+    width: max-content;
+    min-width: 20vw;
+    color: var(--highlight-default-color);
+    /* margin-left: 5vw;
+    margin-right: 5vw; */
 }
+
+pre #keyword {
+    color: var(--highlight-keyword-color);
+}
+
+pre #number {
+    color: var(--highlight-number-color);
+}
+
+pre #decorator {
+    color: var(--highlight-decorator-color);
+}
+
+pre #class-name {
+    /* color: var(--highlight-user-type-color); */
+    color: var(--highlight-keyword2-color);
+}
+
+pre #function {
+    color: var(--highlight-function-color);
+}
+
+pre #string {
+    color: var(--highlight-string-color);
+}
+
+pre #comment {
+    color: var(--highlight-comment-color);
+}
+
 
 a {
     text-decoration: none;
