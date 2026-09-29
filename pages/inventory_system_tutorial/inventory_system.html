@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <title>
+            Godot Tips
+        </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="{% static '../css/styles.css' %}">
-        <script src="main.js"></script>
-        <title>Godot Tips</title>
+        <link rel="stylesheet" href="../../css/styles.css">
+        <link rel="stylesheet" href="../../css/prism.css">
     </head>
     <body>
-        <header class="page-header"><img src="../assets/icon_color.svg" alt="Godot Logo" width="50" height="50">Godot Tips</header>
+        <header class="page-header"><img src="../../assets/icon_color.svg" alt="Godot Logo" width="50" height="50">Godot Tips</header>
         <nav> 
             <ul>
-                <li><a href="../index.html">Home</a></li>
+                <li><a href="../../index.html">Home</a></li>
             </ul>
         </nav>
 
@@ -20,17 +21,20 @@
             <h1>Implementing a Slot-based Inventory System</h1>
             <p>In this tutorial, we will go over how to implement a slot-based inventory system in Godot. This type of inventory system is commonly used in games where players can collect and manage items, such as Stardew Valley.</p>
             <center>
-                <img src="../assets/sv-inventory.png" alt="Inventory from Stardew Valley including a grid of item slots that each can hold up to 999 of a single item" max-height="400" width="800">
+                <img src="../../assets/sv-inventory.png" alt="Inventory from Stardew Valley including a grid of item slots that each can hold up to 999 of a single item" max-height="400" width="800">
                 <p>Image: Inventory from Stardew Valley</p>
             </center>
             
-            <p>We want to start by planning out the structure and its requirements.</p>
-            <ul>
-                <li>We want to be able to add and remove items from the inventory.</li>
-                <li>We want to be able to save and load the inventory data.</li>
-                <li>We want to be able to limit the number of items in the inventory.</li>
-                <li>We want to be able to limit the number of each item in the inventory.</li>
-                <li>We want to be able to contain various types of items in the same inventory.</li>
+            <p>
+                We want to start by planning out the structure and its requirements. For the purpose of the tutorial, we will be replicating
+                the Stardew Valley inventory system. The inventory contains a defined number of slots that can each hold a maximum quantity of said item.
+            </p>
+            <p>Functions we want to include are shown below.</p>
+            <ul aria-label="Functions:">
+                <li>Limit number of slots in inventory</li>
+                <li>Limit number of items per slot</li>
+                <li>Add items to inventory</li>
+                <li>Remove items from inventory</li>
             </ul>
             
             
@@ -43,21 +47,9 @@
             <p>
                 We will create a new script called "item.gd" that extends the Resource class. 
             </p>
-
-            <!-- <pre>extends Resource<br>class_name Item<br><br>@export var name : String = "New Item"<br>@export var icon : Texture2D<br>@export var description : String = "A new blank item."</pre> -->
             
-            <div id="item-script"></div>
+            <pre><code id="item-script" class="language-gdscript">Loading item script....</code></pre>
 
-            <script>
-                fetch('inventory_system_tutorial/item_script.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        // document.getElementById('item-script').innerHTML = `<pre>${data}</pre>`;
-                        document.getElementById('item-script').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading item script:', error));
-            </script>
-            
             <p>The above code defines a simple item resource with three properties: name, icon, and description.</p>
             <p>We can extend off of this base class to create more specific item types with additional properties or behaviors.</p>
 
@@ -65,18 +57,7 @@
             <h2>Step 2: SlotData Resource</h2>
             <p>Next, we will create a resource to represent each slot in the inventory. Each slot in an inventory contains some number of a single type of item.</p>
 
-            <!-- <pre>extends Resource<br>class_name SlotData<br><br>const MAX_QUANTITY : int = 99<br><br>@export var item : Item<br>@export var quantity : int = 1</pre> -->
-            <div id="slot-data-script"></div>
-
-            <script>
-                fetch('inventory_system_tutorial/slot_data_script.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        // document.getElementById('item-script').innerHTML = `<pre>${data}</pre>`;
-                        document.getElementById('slot-data-script').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading slot data script:', error));
-            </script>
+            <pre><code id="slot-data-script" class="language-gdscript">Loading slot data script...</code></pre>
 
             <h2>Step 3: Inventory Resource</h2>
             <p>Next, we will create an inventory resource to manage the items. This resource will hold a list of items and provide methods for adding, removing, and accessing items.</p>
@@ -87,14 +68,7 @@
                 Each slot can hold a maximum of 99 items, and the inventory can hold a maximum of 20 slots.
             </p>
 
-            <pre>
-extends Resource
-class_name Inventory
-
-const MAX_SLOTS : int = 20
-const SLOT_MAX_ITEM_QUANTITY : int = 99
-
-@export var slots : Array[SlotData] = []</pre>
+            <pre><code id="inventory-1" class="language-gdscript">Loading inventory-1 script...</code></pre>
 
 
             <h3>Adding Items</h3>
@@ -104,41 +78,36 @@ const SLOT_MAX_ITEM_QUANTITY : int = 99
                 It will return true if the item was successfully added, or false if the inventory is full or the item could not be added.
             </p>
 
-            <pre>
-func add_item(item : Item, quantity : int = 1) -> bool:
-    for slot in slots:
-        if slot.item == item:
-            slot.quantity += quantity
-            return true
-    return false</pre>
+            <pre><code id="inventory-2" class="language-gdscript">Loading inventory-2 script...</code></pre>
 
             <p>
+                The function loops through all of the slots in the inventory, checks to see if the slot contains the same item as what is trying to be added, 
+                and then adds the quantity to that slot's quantity. 
                 Can you see any issue with this implementation? 
                 What if the item is not in the inventory? 
                 What if there are no empty slots? 
-                What if the item is in the inventory, but the quantity we are trying to add exceeds the available space?
+                What if the item is in the inventory, but the quantity we are trying to add exceeds the available space? Let's try to handle these cases.
             </p>
-            <p>Let's try to handle these cases:</p>
+
+            <h4>Slot Capacity Reached</h4>
+
+            <p>
+                What happens if we go to add an item to a slot but the slot is already full? We need to add a check for that.
+                Let's make sure the slot has space available and then add as much as we can to that slot.
+            </p>
+
+            <pre><code id="inventory-slot-capacity-check" class="language-gdscript">Loading inventory-3 script...</code></pre>
 
 
             <h4>Item Not in Inventory</h4>
 
-            <p>If the item is not already in the inventory, we need to see if there is space for another slot and then create the new SlotData resource.</p>
+            <p>If the item is not already in the inventory, we need to create a new slot for that item and add it to the inventory. we need to see if there is space for another slot and then create the new SlotData resource.</p>
 
-            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
-    for slot in slots:
-        if slot.item == item:
-            slot.quantity += quantity
-            return true
-    
-    if slots.size() < MAX_SLOTS - 1:
-        var new_slot : SlotData = SlotData.new()
-        new_slot.item = item
-        new_slot.quantity = quantity
-        slots.append(new_slot)
-        return true
+            <pre><code id="inventory-3" class="language-gdscript">Loading inventory-3 script...</code></pre>
 
-    return false</pre>
+            <p>But what about the maximum number of inventory slots? Let's add a check to ensure we have enough space to add a whole new slot.</p>
+
+            <pre><code id="inventory-4" class="language-gdscript">Loading inventory-4 script...</code></pre>
 
             <h4>Exceeding Available Space</h4>
 
@@ -148,7 +117,7 @@ func add_item(item : Item, quantity : int = 1) -> bool:
                 Let's start by counting up the total available space before making any changes to the inventory. If the total available space is less than the quantity we are trying to add, we will return false.
             </p>
 
-            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+            <!-- <pre>func add_item(item : Item, quantity : int = 1) -> bool:
     var available_space : int = 0
     for slot in slots:
         if slot.item == item:
@@ -157,12 +126,12 @@ func add_item(item : Item, quantity : int = 1) -> bool:
     available_space += (MAX_SLOTS - slots.size()) * SLOT_MAX_ITEM_QUANTITY
     if available_space < quantity:
         return false
-    ...</pre>
+    ...</pre> -->
     
 
             <p>Now that we know there is enough space, we can loop through the slots again and add the quantity to the existing slots until we have added all of the quantity.</p>
 
-            <pre>func add_item(item : Item, quantity : int = 1) -> bool:
+            <!-- <pre>func add_item(item : Item, quantity : int = 1) -> bool:
     ...
     var remaining_quantity : int = quantity
     for slot in slots:
@@ -183,7 +152,7 @@ func add_item(item : Item, quantity : int = 1) -> bool:
         remaining_quantity -= quantity_to_add
     
 
-    return true</pre>
+    return true</pre> -->
 
             <!-- <p>A small optimization we can make is to sort the slots by their item type or name before adding items. This will make it easier to find items and reduce the number of iterations needed.</p> -->
             
@@ -198,23 +167,28 @@ func add_item(item : Item, quantity : int = 1) -> bool:
 
             <h2>Full Inventory Script</h2>
             
-            <div id="full-inventory-script"></div>
+            <pre><code id="full-inventory-script" class="language-gdscript">Loading inventory script....</code></pre>
 
-            <script>
-                fetch('inventory_system_tutorial/full_inventory_script.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        // document.getElementById('item-script').innerHTML = `<pre>${data}</pre>`;
-                        document.getElementById('full-inventory-script').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading full inventory script:', error));
-            </script>
+
 
 
             <h2>Page in progress...</h2>
 
 
         </main>
+    <script src="../../js/prism.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // patchPrismGDScript();
+        loadGDScript('./item.gd', 'item-script')
+        loadGDScript('./slot_data.gd', 'slot-data-script')
+        loadGDScript('./inventory_1.gd', 'inventory-1')
+        loadGDScript('./inventory_2.gd', 'inventory-2')
+        loadGDScript('./inventory_2_slot_capacity_check.gd', 'inventory-slot-capacity-check')
+        loadGDScript('./inventory_3.gd', 'inventory-3')
+        loadGDScript('./inventory_4.gd', 'inventory-4')
+        loadGDScript('inventory.gd', 'full-inventory-script')
+    </script>
     </body>
 </html>
 
