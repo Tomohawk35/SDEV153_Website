@@ -24,7 +24,7 @@
             
             <h1>Quick Tips and Tricks</h1>
             <h2>Process vs Physics Process</h2>
-            <p>Let's quickly chat about the <code>_process</code> and <code>_physics_process</code> functions.</p>
+            <p>Let's quickly chat about the <code id="process">_process</code> and <code id="physics-process">_physics_process</code> functions.</p>
             <pre><code id="default-script">Loading default script...</code></pre>
 
 
@@ -33,7 +33,11 @@
     <script src="../../js/main.js"></script>
     <script type="module">
         import { importAndHighlightShiki } from '../../js/main.js';
-        importAndHighlightShiki('./gd_scripts/default_script.gd', 'default-script')
+        import { highlightOnlyShiki } from '../../js/main.js';
+        // TODO: Need to figure out inline highlighting
+        highlightOnlyShiki('process');
+        highlightOnlyShiki('physics-process');
+        importAndHighlightShiki('./gd_scripts/default_script.gd', 'default-script');
     </script>
     </body>
 </html>
