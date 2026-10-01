@@ -1,0 +1,30 @@
+What is a state machine?
+
+A state machine, or finite state machine, is a programming pattern that breaks down the complex behavior of an object into smaller, more manageable actions and their respective events/responses. 
+<<<COME UP WITH EXAMPLE>>>
+MathWorks provides a very good explanation of state machines that I recommend taking a read through if you struggle to understand them.
+https://www.mathworks.com/discovery/state-machine.html
+
+
+
+
+
+A common method, especially in Godot, is to use a Node-based State Machine. 
+This involves setting up a base node to act as your overarching controller for states and then adding child nodes to that controller for each individual state.
+You can see a example representation of this structure below. 
+
+Player (CharacterBody2D)
+- CollisionShape2D (CollisionShape2D)
+- StateMachine (Node)
+- - IdleState (Node)
+- - WalkState (Node)
+- - AttackState (Node)
+
+
+
+
+
+
+
+https://zerie.itch.io/tiny-rpg-character-asset-pack
+

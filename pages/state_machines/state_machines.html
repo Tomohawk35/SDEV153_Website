@@ -7,7 +7,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../css/styles.css">
-        <link rel="stylesheet" href="../../css/prism.css">
     </head>
     <body>
         <header class="page-header"><img src="../../assets/icon_color.svg" alt="Godot Logo" width="50" height="50">Godot Tips</header>
@@ -20,23 +19,88 @@
         <main class="content-container">
             
             <!-- <pre><code id="inventory-4" class="language-gdscript">Loading inventory-4 script...</code></pre> -->
+            <h1>Node-based vs. Callable-based State Machines</h1>
+            <h2>What is a state machine?</h2>
+            <p>
+                A state machine, or finite state machine, is a programming pattern that breaks down the complex behavior of an object into smaller, more manageable actions and their respective events/responses. 
+                Think of it as controller for the object that switches between different sets of behavior based on various inputs to the object.
+                MathWorks provides a very good <a href="https://www.mathworks.com/discovery/state-machine.html">explanation of state machines</a> that I recommend taking a read through. 
+            </p>
+            <p>
+                Let's take a simple 2D game for example where a player encounters an enemy monster that wants to attack him. 
+                It may be overwhelming at first glance, but let's break the player and enemy behavior into smaller actions. By default, every object should be able to stand in place, or stand idle. 
+                They should each be able to move about and also attack.
+                Therefore, we have the following states:
+            </p>
+            <ul>
+                <li>Idle</li>
+                <li>Move</li>
+                <li>Attack</li>
+            </ul>
 
-            <h2>Page in progress...</h2>
+            <p>
+                We will develop these states while looking at two state machine options and their pros and cons.
+            </p>
 
+            <h2>Node-based State Machine</h2>
+            <p>
+                A common method, especially in Godot, is to use a Node-based State Machine. 
+                You can find a ton of tutorials on this subject, but the gist is to set up a base node to act as your overarching controller for states and then add child nodes to that controller for each individual state.
+                You can see a example representation of this scene structure below. 
+                
+            </p>
+            
+            <ul aria-label="Player (CharacterBody2D)">
+                <li>CollisionShape2D (CollisionShape2D)</li>
+                <li>
+                    <ul aria-label="StateMachine (Node)">
+                        <li>IdleState (Node)</li>
+                        <li>WalkState (Node)</li>
+                        <li>AttackState (Node)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>
+                I will not go overly in depth on node-based state machines, but I will provide some code definitions as well some reasons why I have moved away from this method.
+                To start, let's define the main state class.
+            </p>
+
+            <h3>State</h3>
+            <p>To start, let's define the main state class. The state class is an abstract class, meaning it is not intended to be used in its initial condition, but rather extended upon to create the various behaviors we want to use for our characters.</p>
+
+            <pre><code id="state-script">Loading state script...</code></pre>
+
+            <h3>State</h3>
+            <p>Now let's develop the first state, the Idle state.</p>
+
+            <pre><code id="state-idle-script">Loading idle state script...</code></pre>
+        
+            <h3>State Machine</h3>
+            <p> State machine</p>
+
+            <pre><code id="state-machine-script">Loading state machine script...</code></pre>
+
+
+
+            <h2>Callable-based State Machine</h2>
+
+            <p>
+                A state machine pattern I have enjoyed using has been a callable-based state machine - <a href="https://gist.github.com/firebelley/96f2f82e3feaa2756fe647d8b9843174">CallableStateMachine by Firebelley</a>.
+            </p>
+
+            <pre><code id="callable-state-machine">Loading callable-state-machine script...</code></pre>
+            
 
         </main>
-    <script src="../../js/prism.js"></script>
+    
     <script src="../../js/main.js"></script>
-    <script>
-        // patchPrismGDScript();
-        // loadGDScript('./item.gd', 'item-script')
-        // loadGDScript('./slot_data.gd', 'slot-data-script')
-        // loadGDScript('./inventory_1.gd', 'inventory-1')
-        // loadGDScript('./inventory_2.gd', 'inventory-2')
-        // loadGDScript('./inventory_2_slot_capacity_check.gd', 'inventory-slot-capacity-check')
-        // loadGDScript('./inventory_3.gd', 'inventory-3')
-        // loadGDScript('./inventory_4.gd', 'inventory-4')
-        // loadGDScript('inventory.gd', 'full-inventory-script')
+    <script type="module">
+        import { importAndHighlightShiki } from '../../js/main.js';
+        importAndHighlightShiki('./gd_scripts/state.gd', 'state-script')
+        importAndHighlightShiki('./gd_scripts/state_machine.gd', 'state-machine-script')
+        importAndHighlightShiki('./gd_scripts/state_idle.gd', 'state-idle-script')
+        importAndHighlightShiki('./gd_scripts/callable_state_machine.gd', 'callable-state-machine')
     </script>
     </body>
 </html>

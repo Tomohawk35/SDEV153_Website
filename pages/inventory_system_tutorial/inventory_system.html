@@ -7,7 +7,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../css/styles.css">
-        <link rel="stylesheet" href="../../css/prism.css">
     </head>
     <body>
         <header class="page-header"><img src="../../assets/icon_color.svg" alt="Godot Logo" width="50" height="50">Godot Tips</header>
@@ -176,18 +175,18 @@
 
 
         </main>
-    <script src="../../js/prism.js"></script>
+
     <script src="../../js/main.js"></script>
-    <script>
-        // patchPrismGDScript();
-        loadGDScript('./item.gd', 'item-script')
-        loadGDScript('./slot_data.gd', 'slot-data-script')
-        loadGDScript('./inventory_1.gd', 'inventory-1')
-        loadGDScript('./inventory_2.gd', 'inventory-2')
-        loadGDScript('./inventory_2_slot_capacity_check.gd', 'inventory-slot-capacity-check')
-        loadGDScript('./inventory_3.gd', 'inventory-3')
-        loadGDScript('./inventory_4.gd', 'inventory-4')
-        loadGDScript('inventory.gd', 'full-inventory-script')
+    <script type="module">
+        import { importAndHighlightShiki } from '../../js/main.js';
+        importAndHighlightShiki('./item.gd', 'item-script')
+        importAndHighlightShiki('./slot_data.gd', 'slot-data-script')
+        importAndHighlightShiki('./inventory_1.gd', 'inventory-1')
+        importAndHighlightShiki('./inventory_2.gd', 'inventory-2')
+        importAndHighlightShiki('./inventory_2_slot_capacity_check.gd', 'inventory-slot-capacity-check')
+        importAndHighlightShiki('./inventory_3.gd', 'inventory-3')
+        importAndHighlightShiki('./inventory_4.gd', 'inventory-4')
+        importAndHighlightShiki('./inventory.gd', 'full-inventory-script')
     </script>
     </body>
 </html>
