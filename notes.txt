@@ -1,5 +1,6 @@
 
 
+WebAIM Contrast Checker - can be used to check contrast between foreground and background colors
 
-Tips:
-Implementing a slot-based inventory system
+WAVE Evaluation Tool - submit URL > checks for accessibility issues
+https://wave.webaim.org/

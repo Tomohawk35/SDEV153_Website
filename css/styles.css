@@ -336,3 +336,8 @@ a:active {
     text-decoration: underline;
 }
 
+nav a {
+    display: inline-block;
+    padding: 15px;
+    font-size: 18px;
+}
