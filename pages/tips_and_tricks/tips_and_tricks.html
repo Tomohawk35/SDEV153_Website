@@ -9,45 +9,117 @@
         <meta name="description" content="Various tips and tricks for Godot">
         <link rel="stylesheet" href="../../css/styles.css">
     </head>
-    <body>
-        <header>
-            <h1>
-                <a href="../../index.html"><img src="assets/icon_color.svg" alt="Godot Logo" width="50" height="50"></a>
-                Godot Tips
-                <nav> 
-                    <a href="../../index.html">Home</a>
-                    <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
-                    <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
-                </nav>
-            </h1>
-        </header>
 
-        <main class="content-container">
+    <body>
+        <header id="page-header" class="page-header"></header>
+
+        <aside id="sidebar" class="sidebar" hidden>
+            <nav class="sidebar-page-nav">
+                <a href="../../index.html">Home</a>
+                <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
+                <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
+            </nav>
+            <nav id="sidebar-nav">
+                <a href="#hotkeys">Hotkeys</a>
+                <a href="#process">Process and Physics Process</a>
+            </nav>
+        </aside>
+
+        <main class="content">
             
             <h1>Quick Tips and Tricks</h1>
-            <h2>Process vs Physics Process</h2>
-            <p>Let's quickly chat about the <code id="process">_process</code> and <code id="physics-process">_physics_process</code> functions.</p>
+
+            <h2 id="hotkeys">Hotkeys</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                    <th scope="col">Hotkey</th>
+                    <th scope="col">Conditions</th>
+                    <th scope="col">Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Ctrl + A</th>
+                        <td>A node is selected in the Scene Tree</td>
+                        <td>Opens a window to search and add a basic node as a child of the selected node</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ctrl + Shift + A</th>
+                        <td>A node is selected in the Scene Tree</td>
+                        <td>Opens a window to search and add a custom scene as a child of the selected node</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ctrl + D</th>
+                        <td>Text is highlighted in the script editor</td>
+                        <td>
+                            Moves to and highlights the next instance of the highlighted text in addition to the orignally highlighted 
+                            text. This is useful for quickly editing multiple instances of the same text.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ctrl + /</th>
+                        <td>Script Editor - Cursor is placed in a line or multiple lines are highlighted (full lines do not need to be highlighted)</td>
+                        <td>
+                            Either comments or uncomments the selected lines.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alt + UP or Alt + DOWN</th>
+                        <td>Script Editor - Cursor is placed in a line or multiple lines are highlighted (full lines do not need to be highlighted)</td>
+                        <td>
+                            Shifts the selected lines up or down in the script. Helpful for quickly moving chunks of code.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="process">Process vs Physics Process</h2>
+            <p>
+                Let's quickly chat about the <code class="code-block-inline">_process(delta: float)</code> and <code class="code-block-inline">_physics_process(delta: float)</code> functions. 
+                Godot Nodes have many built functions ready to use out of the box. The <code class="code-block-inline">_physics_process(delta: float)</code> function is a function that is called at a fixed rate (60 times per second by default) which results in a consistent time delta. 
+                This makes it good for performing physics-related calculations or operations, such as movement or collisions. 
+                The <code class="code-block-inline">_process(delta: float)</code> function is called once for each rendered frame, which can vary depending on how well the system is running. 
+                This makes it the ideal spot for performing graphics-related operations, such as animations and particle effects. 
+            </p>
             <pre><code id="default-script">Loading default script...</code></pre>
+            <p>
+                Many beginner Godot users will jump into tutorials and start throwing all of their code into these two built-in functions. 
+                This can quickly begin to bog down the system if you are doing large amounts of calculations or updates every frame even when unnecessary.
+                A way to solve this issue is an event-based system, or Godot's signals.
+            </p>
+            <p>
+                Godot uses signals to broadcast when a specific event occurs. 
+                These signals can be connected to by other objects that may want to perform a certain action when an specific event occurs.
+                Let's use a simple example: a health bar. 
+            </p>
+            <p>
+                A player may have a health value and a health bar for displaying that value to the player. 
+                A player's health is typically not changing constantly, so it is unnecessary to update the health bar every process frame. 
+                It only needs to update when the health of the player actually changes. 
+                So let's use a signal to announce when the player's health changes.
+            </p>
+            <pre><code id="player-script">Loading player script...</code></pre>
+            <pre><code id="health-bar-script">Loading health bar script...</code></pre>
 
 
         </main>
 
-    <script src="../../js/main.js"></script>
-    <script type="module">
-        import { importAndHighlightShiki } from '../../js/main.js';
-        import { highlightOnlyShiki } from '../../js/main.js';
-        // TODO: Need to figure out inline highlighting
-        highlightOnlyShiki('process');
-        highlightOnlyShiki('physics-process');
-        importAndHighlightShiki('./gd_scripts/default_script.gd', 'default-script');
-    </script>
+        <footer id="page-footer" class="page-footer"></footer>
+
+        <script type="module" src="../../js/main.js"></script>
+        <script type="module">
+            import { importAndHighlightShiki } from '../../js/main.js';
+            import { loadFragment } from '../../js/main.js';
+            import { loadHeader } from '../../js/main.js';
+            loadHeader("page-header", "../header.html");
+            loadFragment("page-footer", "../footer.html");
+            importAndHighlightShiki('./gd_scripts/default_script.gd', 'default-script');
+            importAndHighlightShiki('./gd_scripts/player.gd', 'player-script');
+            importAndHighlightShiki('./gd_scripts/health_bar.gd', 'health-bar-script');
+        </script>
     </body>
-    <footer>
-        <span>Godot Tips</span>
-        <span>
-            <a href="../../index.html">Return to Home</a>
-        </span>
-    </footer>
 </html>
 
 

@@ -56,3 +56,51 @@ export async function highlightOnlyShiki(elementId) {
         errorElement.textContent = '# Error loading script';
     }
 }
+
+export async function loadFragment(elementID, file) {
+    try {
+        const container = document.getElementById(elementID);
+        if (!container) {
+            console.error(`Element with id "${elementID}" not found.`);
+            return;
+        }
+
+        const response = await fetch(file);
+        const html = await response.text();
+        container.innerHTML = html;
+
+    } catch (error) {
+        console.error(error);
+        const errorElement = document.getElementById(elementID);
+        errorElement.textContent = '# Error loading HTML';
+    }
+}
+
+
+export async function loadHeader(elementID, file) {
+    try {
+        const container = document.getElementById(elementID);
+        if (!container) {
+            console.error(`Element with id "${elementID}" not found.`);
+            return;
+        }
+
+        const response = await fetch(file);
+        const html = await response.text();
+        container.innerHTML = html;
+
+        const toggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('#sidebar');
+        
+        toggle.addEventListener('click', () => {
+          const isOpen = sidebar.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+          sidebar.hidden = !isOpen;
+        });
+    } catch (error) {
+        console.error(error);
+        const errorElement = document.getElementById(elementID);
+        errorElement.textContent = '# Error loading HTML';
+    }
+}
+

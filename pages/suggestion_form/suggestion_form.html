@@ -8,18 +8,31 @@
         <title>Godot Tips</title>
     </head>
     <body>
-        <header>
-            <h1>
-                <a href="../../index.html"><img src="assets/icon_color.svg" alt="Godot Logo" width="50" height="50"></a>
-                Godot Tips
-                <nav> 
-                    <a href="../../index.html">Home</a>
-                    <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
-                    <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
-                </nav>
-            </h1>
-        </header>
+        <header id="page-header" class="page-header"></header>
 
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpug1OhOHtuy1AWqj8Jb18-ULabgMeTONsnH_P0Lh515dIAg/viewform?embedded=true" width="100%" height="515" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <aside id="sidebar" class="sidebar" hidden>
+            <nav class="sidebar-page-nav">
+                <a href="../../index.html">Home</a>
+                <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
+                <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
+            </nav>
+            <nav id="sidebar-nav">
+            </nav>
+        </aside>
+
+        <main class="content">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpug1OhOHtuy1AWqj8Jb18-ULabgMeTONsnH_P0Lh515dIAg/viewform?embedded=true" width="100%" height="515" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </main>
+        
+        <footer id="page-footer" class="page-footer"></footer>
+        
+        <script type="module" src="../../js/main.js"></script>
+        <script type="module">
+            import { importAndHighlightShiki } from '../../js/main.js';
+            import { loadFragment } from '../../js/main.js';
+            import { loadHeader } from '../../js/main.js';
+            loadHeader("page-header", "../header.html");
+            loadFragment("page-footer", "../footer.html");
+        </script>
     </body>
 </html>

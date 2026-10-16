@@ -10,23 +10,29 @@
         <link rel="stylesheet" href="../../css/styles.css">
     </head>
     <body>
-        <header>
-            <h1>
-                <a href="../../index.html"><img src="assets/icon_color.svg" alt="Godot Logo" width="50" height="50"></a>
-                Godot Tips
-                <nav> 
-                    <a href="../../index.html">Home</a>
-                    <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
-                    <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
-                </nav>
-            </h1>
-        </header>
+        <header id="page-header" class="page-header"></header>
 
-        <main class="content-container">
+        <aside id="sidebar" class="sidebar" hidden>
+            <nav class="sidebar-page-nav">
+                <a href="../../index.html">Home</a>
+                <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
+                <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
+            </nav>
+            <nav id="sidebar-nav">
+                <a href="#intro">Introduction</a>
+                <a href="#node-based-state-machine">Node-Based</a>
+                <a href="#state">State Class</a>
+                <a href="#idle-state">Idle State</a>
+                <a href="#state-machine">State Machine Class</a>
+                <a href="#callable-state-machine">Callable State Machine</a>
+            </nav>
+        </aside>
+
+        <main class="content">
             
             <!-- <pre><code id="inventory-4" class="language-gdscript">Loading inventory-4 script...</code></pre> -->
             <h1>Node-based vs. Callable-based State Machines</h1>
-            <h2>What is a state machine?</h2>
+            <h2 id="intro">What is a state machine?</h2>
             <p>
                 A state machine, or finite state machine, is a programming pattern that breaks down the complex behavior of an object into smaller, more manageable actions and their respective events/responses. 
                 Think of it as controller for the object that switches between different sets of behavior based on various inputs to the object.
@@ -48,7 +54,7 @@
                 We will develop these states while looking at two state machine options and their pros and cons.
             </p>
 
-            <h2>Node-based State Machine</h2>
+            <h2 id="node-based-state-machine">Node-based State Machine</h2>
             <p>
                 A common method, especially in Godot, is to use a Node-based State Machine. 
                 You can find a ton of tutorials on this subject, but the gist is to set up a base node to act as your overarching controller for states and then add child nodes to that controller for each individual state.
@@ -72,49 +78,49 @@
                 To start, let's define the main state class.
             </p>
 
-            <h3>State</h3>
+            <h3 id="state">State</h3>
             <p>To start, let's define the main state class. The state class is an abstract class, meaning it is not intended to be used in its initial condition, but rather extended upon to create the various behaviors we want to use for our characters.</p>
 
             <pre><code id="state-script">Loading state script...</code></pre>
 
-            <h3>State</h3>
+            <h3 id="idle-state">Idle State</h3>
             <p>Now let's develop the first state, the Idle state.</p>
 
             <pre><code id="state-idle-script">Loading idle state script...</code></pre>
         
-            <h3>State Machine</h3>
+            <h3 id="state-machine">State Machine</h3>
             <p> State machine</p>
 
             <pre><code id="state-machine-script">Loading state machine script...</code></pre>
 
 
 
-            <h2>Callable-based State Machine</h2>
+            <h2 id="callable-state-machine">Callable-based State Machine</h2>
 
             <p>
                 A state machine pattern I have enjoyed using has been a callable-based state machine - <a href="https://gist.github.com/firebelley/96f2f82e3feaa2756fe647d8b9843174">CallableStateMachine by Firebelley</a>.
             </p>
 
-            <pre><code id="callable-state-machine">Loading callable-state-machine script...</code></pre>
+            <pre><code id="callable-state-machine-script">Loading callable-state-machine script...</code></pre>
             
 
         </main>
     
-    <script src="../../js/main.js"></script>
-    <script type="module">
-        import { importAndHighlightShiki } from '../../js/main.js';
-        importAndHighlightShiki('./gd_scripts/state.gd', 'state-script')
-        importAndHighlightShiki('./gd_scripts/state_machine.gd', 'state-machine-script')
-        importAndHighlightShiki('./gd_scripts/state_idle.gd', 'state-idle-script')
-        importAndHighlightShiki('./gd_scripts/callable_state_machine.gd', 'callable-state-machine')
-    </script>
+        <footer id="page-footer" class="page-footer"></footer>
+
+        <script type="module" src="../../js/main.js"></script>
+        <script type="module">
+            import { importAndHighlightShiki } from '../../js/main.js';
+            import { loadFragment } from '../../js/main.js';
+            import { loadHeader } from '../../js/main.js';
+            loadHeader("page-header", "../header.html");
+            loadFragment("page-footer", "../footer.html");
+            importAndHighlightShiki('./gd_scripts/state.gd', 'state-script')
+            importAndHighlightShiki('./gd_scripts/state_machine.gd', 'state-machine-script')
+            importAndHighlightShiki('./gd_scripts/state_idle.gd', 'state-idle-script')
+            importAndHighlightShiki('./gd_scripts/callable_state_machine.gd', 'callable-state-machine-script')
+        </script>
     </body>
-    <footer>
-        <span>Godot Tips</span>
-        <span>
-            <a href="../../index.html">Return to Home</a>
-        </span>
-    </footer>
 </html>
 
 

@@ -9,21 +9,23 @@
         <meta name="description" content="Day/Night cycle tutorial for Godot using a global autoload (singleton)">
         <link rel="stylesheet" href="../../css/styles.css">
     </head>
+    
     <body>
-        <header>
-            <h1>
-                <a href="../../index.html"><img src="assets/icon_color.svg" alt="Godot Logo" width="50" height="50"></a>
-                Godot Tips
-                <nav> 
-                    <a href="../../index.html">Home</a>
-                    <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
-                    <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
-                </nav>
-            </h1>
-        </header>
+        <header id="page-header" class="page-header"></header>
 
-        <main class="content-container">
-            <h1>Implementing a Day/Night Cycle System</h1>
+        <aside id="sidebar" class="sidebar" hidden>
+            <nav class="sidebar-page-nav">
+                <a href="../../index.html">Home</a>
+                <a href="../tutorial_index/tutorial_index.html">Tutorials</a>
+                <a href="../tips_and_tricks/tips_and_tricks.html">Tips</a>
+            </nav>
+            <nav id="sidebar-nav">
+                <a href="#intro">Introduction</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h1 id="intro">Implementing a Day/Night Cycle System</h1>
             <p>In this tutorial, we will go over how to implement a day/night cycle system in Godot. </p>
             
 
@@ -32,18 +34,19 @@
 
         </main>
 
-    <script src="../../js/main.js"></script>
-    <script type="module">
-        import { importAndHighlightShiki } from '../../js/main.js';
-        // importAndHighlightShiki('./gd_scripts/item.gd', 'item-script')
-        // importAndHighlightShiki('./gd_scripts/slot_data.gd', 'slot-data-script')
-        // importAndHighlightShiki('./gd_scripts/inventory_1.gd', 'inventory-1')
-        // importAndHighlightShiki('./gd_scripts/inventory_2.gd', 'inventory-2')
-        // importAndHighlightShiki('./gd_scripts/inventory_2_slot_capacity_check.gd', 'inventory-slot-capacity-check')
-        // importAndHighlightShiki('./gd_scripts/inventory_3.gd', 'inventory-3')
-        // importAndHighlightShiki('./gd_scripts/inventory_4.gd', 'inventory-4')
-        // importAndHighlightShiki('./gd_scripts/inventory.gd', 'full-inventory-script')
-    </script>
+        <footer id="page-footer" class="page-footer"></footer>
+
+        <script type="module" src="../../js/main.js"></script>
+        <script type="module">
+            import { importAndHighlightShiki } from '../../js/main.js';
+            import { loadFragment } from '../../js/main.js';
+            import { loadHeader } from '../../js/main.js';
+            loadHeader("page-header", "../header.html");
+            loadFragment("page-footer", "../footer.html");
+            // importAndHighlightShiki('./gd_scripts/default_script.gd', 'default-script');
+            // importAndHighlightShiki('./gd_scripts/player.gd', 'player-script');
+            // importAndHighlightShiki('./gd_scripts/health_bar.gd', 'health-bar-script');
+        </script>
     </body>
 </html>
 
