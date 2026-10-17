@@ -1,8 +1,9 @@
 @abstract
 extends Node
-class_name State
+class_name NodeState
 
-signal transition_request(new_state: State)
+@warning_ignore("unused_signal")
+signal transition_request(new_state_name: String)
 
 @abstract
 func handle_input(_event: InputEvent) -> void

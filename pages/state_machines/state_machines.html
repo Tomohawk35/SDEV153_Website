@@ -20,10 +20,12 @@
             </nav>
             <nav id="sidebar-nav">
                 <a href="#intro">Introduction</a>
-                <a href="#node-based-state-machine">Node-Based</a>
-                <a href="#state">State Class</a>
-                <a href="#idle-state">Idle State</a>
-                <a href="#state-machine">State Machine Class</a>
+                <a href="#node-based-state-machine">Node-Based State Machine</a>
+                <!-- <a href="#state">State Class</a>
+                <a href="#idle-node-state">Idle Node State</a>
+                <a href="#move-node-state">Move Node State</a>
+                <a href="#attack-node-state">Attack Node State</a>
+                <a href="#state-machine">State Machine Class</a> -->
                 <a href="#callable-state-machine">Callable State Machine</a>
             </nav>
         </aside>
@@ -32,15 +34,18 @@
             
             <!-- <pre><code id="inventory-4" class="language-gdscript">Loading inventory-4 script...</code></pre> -->
             <h1>Node-based vs. Callable-based State Machines</h1>
+
             <h2 id="intro">What is a state machine?</h2>
+
             <p>
                 A state machine, or finite state machine, is a programming pattern that breaks down the complex behavior of an object into smaller, more manageable actions and their respective events/responses. 
                 Think of it as controller for the object that switches between different sets of behavior based on various inputs to the object.
                 MathWorks provides a very good <a href="https://www.mathworks.com/discovery/state-machine.html">explanation of state machines</a> that I recommend taking a read through. 
             </p>
             <p>
-                Let's take a simple 2D game for example where a player encounters an enemy monster that wants to attack him. 
-                It may be overwhelming at first glance, but let's break the player and enemy behavior into smaller actions. By default, every object should be able to stand in place, or stand idle. 
+                Let's take a simple 2D game for example where a player encounters an enemy monster that wants to attack them. 
+                It may be overwhelming at first glance, but let's break the player and enemy behavior into smaller actions. 
+                By default, every object should be able to stand in place, or stand idle. 
                 They should each be able to move about and also attack.
                 Therefore, we have the following states:
             </p>
@@ -51,7 +56,9 @@
             </ul>
 
             <p>
-                We will develop these states while looking at two state machine options and their pros and cons.
+                We will develop these states using two different state machine approaches and explore their pros and cons. 
+                As a side note, I will be using Godot 4.7 for this tutorial. You can find the full code for this tutorial on my <a href="https://github.com/Tomohawk35/SDEV153_Website/tree/main/pages/state_machines/gd_scripts">GitHub</a> page.
+                The assets for this tutorial are provided by <a href="https://zerie.itch.io/tiny-rpg-character-asset-pack">Zerie</a> on Itch.io where you can find many free and paid assets for your own projects.
             </p>
 
             <h2 id="node-based-state-machine">Node-based State Machine</h2>
@@ -81,19 +88,32 @@
             <h3 id="state">State</h3>
             <p>To start, let's define the main state class. The state class is an abstract class, meaning it is not intended to be used in its initial condition, but rather extended upon to create the various behaviors we want to use for our characters.</p>
 
-            <pre><code id="state-script">Loading state script...</code></pre>
+            <pre><code id="node-state-script">Loading state script...</code></pre>
 
-            <h3 id="idle-state">Idle State</h3>
-            <p>Now let's develop the first state, the Idle state.</p>
-
-            <pre><code id="state-idle-script">Loading idle state script...</code></pre>
-        
             <h3 id="state-machine">State Machine</h3>
             <p> State machine</p>
 
-            <pre><code id="state-machine-script">Loading state machine script...</code></pre>
+            <pre><code id="node-state-machine-script">Loading state machine script...</code></pre>
 
+            <h3 id="idle-node-state">Idle Node State</h3>
+            <p>Now let's develop the first state, the Idle state.</p>
 
+            <pre><code id="idle-node-state-script">Loading idle state script...</code></pre>
+        
+            <h3 id="move-node-state">Move Node State</h3>
+            <p>Now let's develop the first state, the Idle state.</p>
+
+            <!-- <pre><code id="idle-node-state-script">Loading idle state script...</code></pre> -->
+
+            <h3 id="attack-node-state">Attack Node State</h3>
+            <p>Now let's develop the first state, the Idle state.</p>
+
+            <!-- <pre><code id="idle-node-state-script">Loading idle state script...</code></pre> -->
+
+            <p>
+                These scripts will be attached to nodes under the Player scene and defines its behavior. The Player scene tree should look like the following:
+            </p>
+            <img src="./assets/player-scene-tree.png" alt="Player scene tree in Godot showing a State Machine node and child nodes for the various states" style="max-width: 600px; height: auto;">
 
             <h2 id="callable-state-machine">Callable-based State Machine</h2>
 
@@ -115,9 +135,9 @@
             import { loadHeader } from '../../js/main.js';
             loadHeader("page-header", "../header.html");
             loadFragment("page-footer", "../footer.html");
-            importAndHighlightShiki('./gd_scripts/state.gd', 'state-script')
-            importAndHighlightShiki('./gd_scripts/state_machine.gd', 'state-machine-script')
-            importAndHighlightShiki('./gd_scripts/state_idle.gd', 'state-idle-script')
+            importAndHighlightShiki('./gd_scripts/state-machine-test/node_state_machine/node_state.gd', 'node-state-script')
+            importAndHighlightShiki('./gd_scripts/state-machine-test/node_state_machine/node_state_machine.gd', 'node-state-machine-script')
+            importAndHighlightShiki('./gd_scripts/state-machine-test/node_state_machine/player_idle_state.gd', 'idle-node-state-script')
             importAndHighlightShiki('./gd_scripts/callable_state_machine.gd', 'callable-state-machine-script')
         </script>
     </body>

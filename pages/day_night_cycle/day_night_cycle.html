@@ -21,15 +21,31 @@
             </nav>
             <nav id="sidebar-nav">
                 <a href="#intro">Introduction</a>
+                <a href="#time-manager-script-location">Time Manager Script</a>
             </nav>
         </aside>
 
         <main class="content">
             <h1 id="intro">Implementing a Day/Night Cycle System</h1>
-            <p>In this tutorial, we will go over how to implement a day/night cycle system in Godot. </p>
-            
+            <p>
+                In this tutorial, we will go over how to implement a day/night cycle system in Godot. 
+                Many games feature this mechanic to create a more immersive experience. 
+                It can also be used to affect gameplay elements such as enemy behavior, lighting conditions, or plant growth.
+            </p>
 
-            <h2>Page in progress...</h2>
+            <p>
+                A day/night cycle system can be implemented in various ways, but one common approach is to use a global autoload (singleton) to manage the time of day and update the environment accordingly. 
+                This allows for easy access to the time of day from any scene in the game. These are generally pretty simple as they are only focused on keeping track of time.
+            </p>
+
+            <p>
+                The script below demonstrates a simple manager class that keeps track of the time of day and day number. 
+                It also provides a signal that can be connected to other nodes in the game to update their behavior based on the time of day. 
+                For example, a plant object could connect to the <code class="code-block-inline">new_day</code> signal to update its growth stage.
+            </p>
+
+            <h3 id="time-manager-script-location">Time Manager Singleton Script</h3>
+            <pre><code id="time-manager" class="language-gdscript">Loading time manager script....</code></pre>
 
 
         </main>
@@ -43,7 +59,7 @@
             import { loadHeader } from '../../js/main.js';
             loadHeader("page-header", "../header.html");
             loadFragment("page-footer", "../footer.html");
-            // importAndHighlightShiki('./gd_scripts/default_script.gd', 'default-script');
+            importAndHighlightShiki('./gd_scripts/time_manager.gd', 'time-manager');
             // importAndHighlightShiki('./gd_scripts/player.gd', 'player-script');
             // importAndHighlightShiki('./gd_scripts/health_bar.gd', 'health-bar-script');
         </script>
